@@ -2,6 +2,14 @@ package models
 
 import "time"
 
+type PasteResponse struct {
+	URL string `json:"url"`
+}
+
+type PasteRequest struct {
+	Content string `json:"content"`
+}
+
 type Paste struct {
 	ID        int64     `json:"id"`
 	Content   string    `json:"content"`
