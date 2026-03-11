@@ -12,9 +12,9 @@ func Routes(r *gin.Engine) {
 
 	r.POST("/paste", handlers.CreatePaste)
 
-	r.GET("/paste/:id")
+	r.GET("/paste", handlers.GetContext)
 
-	r.DELETE("/paste/:id")
+	r.DELETE("/paste", handlers.DeleteContext)
 }
 
 func checkAPI(c *gin.Context) {
