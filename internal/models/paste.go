@@ -12,6 +12,7 @@ type PasteRequest struct {
 
 type Paste struct {
 	ID        int64     `json:"id"`
+	Code      string    `json:"code"`
 	Content   string    `json:"content"`
 	CreatedAt time.Time `json:"created_at"`
 }
