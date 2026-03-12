@@ -15,6 +15,16 @@ var nextID int64 = 0
 
 var pasteInfo = make(map[string]models.Paste)
 
+// CreatePaste godoc
+// @Summary Create paste
+// @Description Creating new paste content
+// @Tags paste
+// @Produce json
+// @Accept json
+// @Param paste body models.PasteRequest true "Paste payload"
+// @Success 201 {object} map[string]interface{}
+// @Failure 500 {object} map[string]string
+// @Router /paste [post]
 func CreatePaste(c *gin.Context) {
 	var paste models.PasteRequest
 	err := c.ShouldBindJSON(&paste)
@@ -48,6 +58,15 @@ func CreatePaste(c *gin.Context) {
 	})
 }
 
+// GetPaste godoc
+// @Summary Getting paste
+// @Description Getting paste by code
+// @Tags paste
+// @Produce json
+// @Param code path string true "Paste code"
+// @Success 200 {object} map[string]models.PasteResponse
+// @Failure 404 {object} map[string]string
+// @Router /paste/{code} [get]
 func GetPaste(c *gin.Context) {
 	code := c.Param("code")
 
@@ -61,6 +80,14 @@ func GetPaste(c *gin.Context) {
 	c.JSON(http.StatusOK, paste)
 }
 
+// DeletePaste godoc
+// @Summary Delete Paste
+// @Description Deleting paste by code
+// @Tags paste
+// @Param code path string true "Paste code"
+// @Success 204
+// @Failure 404 {object} map[string]string
+// @Router /paste/{code} [delete]
 func DeletePaste(c *gin.Context) {
 	code := c.Param("code")
 
@@ -76,6 +103,14 @@ func DeletePaste(c *gin.Context) {
 	c.Status(http.StatusNoContent)
 }
 
+// RawPaste godoc
+// @Summary Accesing raw paste
+// @Description Accesing raw paste by code
+// @Tags paste
+// @Param code path string true "Paste code"
+// @Success 200 {string} string
+// @Failure 404 {object} map[string]string
+// @Router /paste/raw/{code} [get]
 func RawPaste(c *gin.Context) {
 	code := c.Param("code")
 

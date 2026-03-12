@@ -1,0 +1,134 @@
+basePath: /
+definitions:
+  models.PasteRequest:
+    properties:
+      content:
+        type: string
+    type: object
+  models.PasteResponse:
+    properties:
+      url:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Pastebin API for sending messages through link
+  title: Pastebin API
+  version: "1.0"
+paths:
+  /health:
+    get:
+      description: Checking API for working
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Check REST API
+      tags:
+      - health
+  /paste:
+    post:
+      consumes:
+      - application/json
+      description: Creating new paste content
+      parameters:
+      - description: Paste payload
+        in: body
+        name: paste
+        required: true
+        schema:
+          $ref: '#/definitions/models.PasteRequest'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Create paste
+      tags:
+      - paste
+  /paste/{code}:
+    delete:
+      description: Deleting paste by code
+      parameters:
+      - description: Paste code
+        in: path
+        name: code
+        required: true
+        type: string
+      responses:
+        "204":
+          description: No Content
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Delete Paste
+      tags:
+      - paste
+    get:
+      description: Getting paste by code
+      parameters:
+      - description: Paste code
+        in: path
+        name: code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              $ref: '#/definitions/models.PasteResponse'
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Getting paste
+      tags:
+      - paste
+  /paste/raw/{code}:
+    get:
+      description: Accesing raw paste by code
+      parameters:
+      - description: Paste code
+        in: path
+        name: code
+        required: true
+        type: string
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+      summary: Accesing raw paste
+      tags:
+      - paste
+swagger: "2.0"
