@@ -75,3 +75,16 @@ func DeletePaste(c *gin.Context) {
 
 	c.Status(http.StatusNoContent)
 }
+
+func RawPaste(c *gin.Context) {
+	code := c.Param("code")
+
+	paste, ok := pasteInfo[code]
+
+	if !ok {
+		c.JSON(http.StatusNotFound, gin.H{"message": "paste not found"})
+		return
+	}
+
+	c.String(http.StatusOK, paste.Content)
+}

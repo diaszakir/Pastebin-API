@@ -9,10 +9,10 @@ import (
 
 func Routes(r *gin.Engine) {
 	r.GET("/health", checkAPI)
+	r.GET("/paste/:code", handlers.GetPaste)
+	r.GET("/paste/raw/:code", handlers.RawPaste)
 
 	r.POST("/paste", handlers.CreatePaste)
-
-	r.GET("/paste/:code", handlers.GetPaste)
 
 	r.DELETE("/paste/:code", handlers.DeletePaste)
 }
